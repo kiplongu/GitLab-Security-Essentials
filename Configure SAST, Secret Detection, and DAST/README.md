@@ -205,3 +205,53 @@ Leave Delete source branch checked and click Merge.
 
 
 
+# Task F. Enable and Configure Secret Detection
+In the last section, you applied SAST to detect vulnerabilities in your source code. In addition to scanning code for vulnerabilities, GitLab can also scan your code for secrets like keys and API tokens. Adding secret detection to your code will prevent leaking sensitive data in your repositories.
+
+The Secret Detection job belongs to the test stage by default. Since your .gitlab-ci.yml already defines that stage, you don’t need to define it again.
+
+In the Left sidebar, navigate to Code > Repository.
+
+Click the .gitlab-ci.yml file. In the top right above the code, navigate to Edit > Edit single file.
+
+Enable Secret Detection by adding template: Security/Secret-Detection.gitlab-ci.yml at the end of the existing include: section in .gitlab-ci.yml, below the template for SAST. This indent should be at the same level as the previous template.
+
+include:
+- template: Security/SAST.gitlab-ci.yml
+- template: Security/Secret-Detection.gitlab-ci.yml
+It is also possible to configure Secret Detection through the GitLab UI by navigating to Secure > Security configuration and clicking the Configure Secret Detection button. We will be configuring it by editing the CI file for this lab to help you learn more about how it works under the hood.
+
+Configure Secret Detection to ignore the test directory by pasting this job definition at the end of .gitlab-ci.yml. The first line should have no indent.
+
+secret_detection:
+  variables:
+    SECRET_DETECTION_EXCLUDED_PATHS: tests/
+To configure Secret Detection to use non-default behavior, you can override the secret_detection job definition and add variables inside it.
+
+A full list of Secret Detection variables can be found in the documentation.
+
+Your .gitlab-ci.yml file will now look like this.
+
+stages:
+- test
+
+include:
+- template: Security/SAST.gitlab-ci.yml
+- template: Security/Secret-Detection.gitlab-ci.yml
+
+variables:
+  SAST_EXCLUDED_PATHS: venv/
+
+secret_detection:
+  variables:
+    SECRET_DETECTION_EXCLUDED_PATHS: tests/
+You have already learned how to commit your changes to a new branch and create a merge request. Commit your changes to the add_secret_detection target branch. The commit message can be left at default or updated to Add Secret Detection to .gitlab-ci.yml. For single commit branches, the commit message is used as the merge request title.
+
+Note: If you look at the security report on this merge request, you will notice that no vulnerabilities have been detected. This occurs because the secrets in main.py already exist in the main branch. The scan that occurs in the merge request will only show vulnerabilities that are newly introduced in the merge request. To see existing vulnerabilities, you will need to look at the project level vulnerability report covered in the next section.
+
+Click the Merge button on your merge request after the pipeline passes.
+
+
+
+
+

@@ -342,3 +342,62 @@ Once all the jobs have finished, navigate to Secure > Vulnerability Report.
 
 Click the checkbox next to the RSA private key and GitLab Personal Access Token vulnerability. In the Set status dropdown, click Resolve. Click Change status.
 
+
+
+# Task K. Enable and Configure DAST
+Dynamic Application Security Testing, or DAST, is the process of scanning a running application for vulnerabilities using simulated attacks. DAST allows you to see how your application actually runs, catching vulnerabilities that may not be present in static testing. In this section, you will learn how to configure DAST scanning in your project.
+
+Navigate to Code > Repository.
+
+Click on .gitlab-ci.yml.
+
+Click Edit > Edit single file.
+
+Since the default DAST job belongs to the dast stage, you need to define that stage by pasting this line at the end of the existing stages: section. The dast stage should be at the same indent level as the test stage.
+
+stages:
+- test
+- dast
+Enable DAST by adding template: DAST.gitlab-ci.yml to the end of the existing include: section in .gitlab-ci.yml. This line should have the same indentation as the other templates.
+
+include:
+- template: Security/SAST.gitlab-ci.yml
+- template: Security/Secret-Detection.gitlab-ci.yml
+- template: DAST.gitlab-ci.yml
+Add DAST_WEBSITE: https://example.com at the end of the existing global variables: section (not the variables: section inside the secret_detection job definition). Use the same indentation as the SAST_EXCLUDED_PATHS variable.
+
+variables:
+  SAST_EXCLUDED_PATHS: venv/
+  DAST_WEBSITE: https://example.com
+Normally you would run DAST against your project’s code running in either a review environment or a production environment. Since the code in this project is just a single Python file instead of a deployable web app, you’ll configure DAST to scan an outside web app that has nothing to do with the code in this project.
+
+A full list of DAST variables can be found in the documentation.
+
+After these changes, your .gitlab-ci.yml file should look like this.
+
+stages:
+- test
+- dast
+
+include:
+- template: Security/SAST.gitlab-ci.yml
+- template: Security/Secret-Detection.gitlab-ci.yml
+- template: DAST.gitlab-ci.yml
+
+variables:
+  SAST_EXCLUDED_PATHS: venv/
+  DAST_WEBSITE: https://example.com
+
+secret_detection:
+  variables:
+    SECRET_DETECTION_EXCLUDED_PATHS: tests/
+Click the Commit changes button.
+
+To view the progress of the DAST scan, navigate to Build > Pipelines. Click on the Status of the job to see each individual job in the pipeline. Click dast to see the CI output of the job.
+
+The DAST scan will take approximately 90 seconds to complete.
+
+Once the scan completes, navigate to Secure > Vulnerability Report.
+
+In the vulnerability report, note the new vulnerabilities discovered by DAST. Click on each vulnerability to learn more.
+

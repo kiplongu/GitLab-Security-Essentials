@@ -329,3 +329,16 @@ Examine the report. You should no longer see any vulnerabilities.
 
 Although we have removed the keys in this merge request, they may still exist in the repository history. It is always advised to rotate keys if they are ever detected in a repository.
 
+
+
+# Task J. Merge your branch and resolve the fixed vulnerability
+In the merge request, click the Merge button.
+
+Navigate to Build > Pipelines.
+
+Click the status icon of the pipeline that triggered when you merged your branch.
+
+Once all the jobs have finished, navigate to Secure > Vulnerability Report.
+
+Click the checkbox next to the RSA private key and GitLab Personal Access Token vulnerability. In the Set status dropdown, click Resolve. Click Change status.
+

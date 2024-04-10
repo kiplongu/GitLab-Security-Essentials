@@ -275,3 +275,57 @@ The second vulnerability, GitLab Personal Access Token implies that a GitLab tok
 
 Since the vulnerabilities do exist in the code, click the checkbox next to each vulnerability. In the Set status dropdown, click Confirm. Click Change status.
 
+
+
+# Task I. Create a Branch and Merge Request
+You’ll need a branch and an MR to fix the RSA private key vulnerability.
+
+Navigate to Code > Branches.
+
+Click the New branch button.
+
+Name the branch fix-rsa.
+
+Leave the Create from dropdown as the default value main.
+
+Click the Create branch button.
+
+You’ll be returned to the Files page for the fix-rsa branch. Click the file main.py.
+
+In the top right above the code, navigate to Edit > Edit single file.
+
+The code currently looks like this.
+
+gitlab_token = 'glpat-hC5G3PrMaZ7UkVZhxhnx'
+rsa_data = '''
+-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: DES-EDE3-CBC,86C3F4011519BFBB
+PxyzMAlAmEu/Qkx9nPh696SU7/MjXpCpOnfFiijLhJumNcRlWgsOiI9rfwlkh4aN
+-----END RSA PRIVATE KEY-----
+'''
+
+print("Attempting to connect to the server")
+print("Application authentication was successful")
+Remove the first two variables to get the following result.
+
+print("Attempting to connect to the server")
+print("Application authentication was successful")
+In this example, we remove the token and API key. If these values are needed for the code to function, they are often stored as environment variables (or CI variables) rather than written into the code. Doing this helps prevent leaking this data to anyone who can view the code.
+
+Click the Commit changes button.
+
+At the top of the change confirmation page, click the Create merge request button.
+
+Leave all of the fields at their default values, then click the Create merge request button.
+
+On the merge request page, wait for the pipeline to complete.
+
+Once the pipeline completes, the security scan will display in the merge request. Click the Full report button.
+
+You may need to refresh the page for the security scan to show.
+
+Examine the report. You should no longer see any vulnerabilities.
+
+Although we have removed the keys in this merge request, they may still exist in the repository history. It is always advised to rotate keys if they are ever detected in a repository.
+

@@ -67,3 +67,47 @@ Click the Save changes button.
 
 In the left sidebar, navigate to Code > Repository to return to your code.
 
+
+# Task C. Enable and Configure SAST
+Static Application Security Testing, or SAST, is the process of examining source code for vulnerabilities. You can use a SAST scan to automatically scan a code repository for known vulnerabilities. You can also use a SAST scan to check merge requests for vulnerabilities before merging the request. This process helps ensure that your code stays vulnerability free.
+
+Create a new file in the main branch by clicking (+) > This directory > New file.
+
+In the Filename field, type .gitlab-ci.yml. You will see a template appear automatically that you can leave blank for this task.
+
+Define a single test stage:
+
+stages:
+- test
+Keep in mind that YAML files should be indented with two spaces. Your web IDE may try to use a tab with 4 spaces. Simply use the backspace to set 2 spaces if you are not copying and pasting the examples.
+
+Enable SAST by pasting the following text after the stages definition in .gitlab-ci.yml:
+
+include:
+- template: Security/SAST.gitlab-ci.yml
+It is also possible to configure SAST through the GitLab UI by navigating to Secure > Security configuration and clicking the Configure SAST button. We will be configuring it by editing the CI file for this lab to help you learn more about how it works under the hood.
+
+Add a variables section to the end of your .gitlab-ci.yml file and set the SAST_EXCLUDED_PATHS: venv/.
+
+variables:
+  SAST_EXCLUDED_PATHS: venv/
+You can customize your SAST by adding configurations to the variables section of the .gitlab-ci.yml file. For example, the SAST_EXCLUDED_PATHS variable can exclude project paths from the SAST scan. This option can be set to prevent unnecessary scanning of files.
+
+As an example, Python projects often contain a venv directory that contains packages used by the project. Since this directory does not contain our own source code, we should exclude it from the SAST scan.
+
+A full list of SAST variables can be found in the documentation.
+
+Add an appropriate commit message (ex. Add SAST template to .gitlab-ci.yml), set the Target Branch to main, then click the Commit changes button.
+
+Once complete, you will have a .gitlab-ci.yml file that looks like this:
+
+stages:
+- test
+
+include:
+- template: Security/SAST.gitlab-ci.yml
+
+variables:
+  SAST_EXCLUDED_PATHS: venv/
+
+

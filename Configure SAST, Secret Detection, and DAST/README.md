@@ -159,3 +159,49 @@ You may need to refresh the page to see the new security scan section.
 
 In this example, the security scan will show 1 new medium vulnerability. To view the details of the vulnerability report, click the Full report button.
 
+
+
+# Task E. Merge Request Vulnerability Report
+One of the main goals of security scanning is to prevent insecure code from making it into a repository. You can use the merge request vulnerability report to see all of the vulnerabilities that were detected in a single merge request. Note that this report will only show vulnerabilities that are newly introduced in the current merge request. If a vulnerability already exists in the repository, it will not show here, but will show in the project level vulnerability report.
+
+In the vulnerability column, click the Improper neutralization of special elements used in an OS Command (‘OS Command Injection’) vulnerability.
+
+In the resulting window, you will see details about the OS Command Injection vulnerability. Note that the detection shows the location of the vulnerability, which is line 4 of main.py. Click the X in the top right to close the modal window, or the Cancel button at the bottom.
+
+In the sidebar, navigate to Code > Merge requests.
+
+Click the merge request Add prompt for server authentication.
+
+Click the Changes tab below the merge request title. On the main.py file, click vertical ellipses -> Edit in single-file editor.
+
+The scan showed that line 4 contained a vulnerability.
+
+# main.py Line 4
+subprocess.run(["ping", in])
+The problem is that this line uses user input to run a system command. In this situation, a user could craft an input that causes the application to execute an unintended command. To resolve this, you can either remove the command, or remove the user input from the command.
+
+Remove lines 1 through 4 from the code. This is what the file should look like now.
+
+gitlab_token = 'glpat-hC5G3PrMaZ7UkVZhxhnx'
+rsa_data = '''
+-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: DES-EDE3-CBC,86C3F4011519BFBB
+PxyzMAlAmEu/Qkx9nPh696SU7/MjXpCpOnfFiijLhJumNcRlWgsOiI9rfwlkh4aN
+-----END RSA PRIVATE KEY-----
+'''
+
+print("Attempting to connect to the server")
+print("Application authentication was successful")
+Click the Commit changes button.
+
+You may need to refresh the page to see the latest changes.
+
+Click the Overview tab below the merge request title.
+
+In the overview, you will see the security pipeline running. When the pipeline completes, refresh the page to see the security report. The security report will show no new potential vulnerabilities detected. With no new vulnerabilities detected, the branch is now safe to merge into main!
+
+Leave Delete source branch checked and click Merge.
+
+
+

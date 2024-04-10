@@ -111,3 +111,51 @@ variables:
   SAST_EXCLUDED_PATHS: venv/
 
 
+
+# Task D. Add a Vulnerability to the Application
+With SAST scanning in place, you are now able to see security vulnerabilities inside of merge requests. To demonstrate how this SAST scan works, let’s create a branch with some vulnerable code.
+
+Navigate to Code > Repository to see your project source code.
+
+Add a new file by clicking (+) > This directory > New file.
+
+Set the filename to main.py.
+
+Introduce a new vulnerability (pretend this is accidental!) by adding the following code to your main.py file:
+
+import subprocess
+
+in = input("Enter your server ip: ")
+subprocess.run(["ping", in])
+
+gitlab_token = 'glpat-hC5G3PrMaZ7UkVZhxhnx'
+rsa_data = '''
+-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: DES-EDE3-CBC,86C3F4011519BFBB
+PxyzMAlAmEu/Qkx9nPh696SU7/MjXpCpOnfFiijLhJumNcRlWgsOiI9rfwlkh4aN
+-----END RSA PRIVATE KEY-----
+'''
+
+print("Attempting to connect to the server")
+print("Application authentication was successful")
+Add an appropriate commit message (Ex. Add prompt for server authentication), set the target branch to add_auth.
+
+Setting the target branch to add_auth will create a new branch named add_auth, and open a merge request on the branch.
+
+Make sure that the Start a new merge request with these changes checkbox is checked.
+
+Click the Commit changes button.
+
+In the resulting merge request, set the name to Add prompt for server authentication, and leave all the fields as default.
+
+Click the Create merge request button.
+
+On the merge request page, you will see your security pipeline running. Wait for the pipeline to complete.
+
+Once the pipeline completes, a new section will appear in the merge request, showing the results of the security scan.
+
+You may need to refresh the page to see the new security scan section.
+
+In this example, the security scan will show 1 new medium vulnerability. To view the details of the vulnerability report, click the Full report button.
+

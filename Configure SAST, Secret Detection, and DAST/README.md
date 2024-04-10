@@ -54,3 +54,16 @@ Ensure that the Enable Static Application Security Testing (SAST) checkbox remai
 
 Click Create project.
 
+# Task B. Turn Off Auto DevOps
+By default, projects in some GitLab environments will enable Auto DevOps when no CI configuration file is found in a project. To avoid any conflicts between our CI/CD configuration and Auto DevOps, you should confirm that Auto DevOps is disabled in your project.
+
+In the left sidebar, navigate to Settings > CI/CD.
+
+Click on the Expand button next to Auto DevOps.
+
+Ensure that Default to Auto DevOps pipeline is unchecked.
+
+Click the Save changes button.
+
+In the left sidebar, navigate to Code > Repository to return to your code.
+

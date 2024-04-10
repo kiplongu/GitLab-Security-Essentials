@@ -266,3 +266,12 @@ Experiment with the Status, Severity, and Tool filters.
 
 
 
+# Task H. Confirm the Vulnerability
+When the security scanners find vulnerabilities, you need to keep track of whether they should be fixed or ignored. You do this by setting a vulnerability’s status. There are several ways to do so, but in this lab you’ll set status inside the Vulnerability Report.
+
+There is a vulnerability in the report with the description RSA private key. This vulnerability indicates that a RSA private key is written in our repository. By looking at the code, we can confirm that there is an RSA private key in the code.
+
+The second vulnerability, GitLab Personal Access Token implies that a GitLab token is present in the code. By looking at the code, we can confirm that this is true as well.
+
+Since the vulnerabilities do exist in the code, click the checkbox next to each vulnerability. In the Set status dropdown, click Confirm. Click Change status.
+

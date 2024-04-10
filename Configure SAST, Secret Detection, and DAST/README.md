@@ -252,6 +252,17 @@ Note: If you look at the security report on this merge request, you will notice 
 Click the Merge button on your merge request after the pipeline passes.
 
 
+# Task G. View the Project Level Vulnerability Report
+Every time you merge code into the main branch, the security pipeline will run and generate a project level vulnerability report that shows all vulnerabilities in the latest commit to the default branch. Think of this as the baseline set of vulnerabilities that you’ll compare to vulnerabilities on other branches.
+
+Navigate to Secure > Vulnerability Report.
+
+Looking at the Tool column in the Development vulnerabilities table, you’ll see two critical vulnerabilities detected by the Secret Detection scan you just added.
+
+Click on some of vulnerabilities to learn more about them, and to see where they occur in the code.
+
+Experiment with the Status, Severity, and Tool filters.
+
 
 
 

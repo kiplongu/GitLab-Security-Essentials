@@ -111,3 +111,27 @@ This commit triggers a pipeline run using your new Dependency Scanning configura
 
 Navigate to Build > Pipelines and wait for the most recent pipeline to finish. If you want to watch its progress, go to the pipeline’s details page and click on the job the gemnasium-python-dependency_scanning pill button to see the console output for the job. Remember that Dependency Scanning can take a few minutes to run.
 
+
+
+
+# Task E. Take Action on Vulnerabilities
+The first step in managing dependency based vulnerabilities is to verify that the vulnerability does exist in your usage of the dependency. If the vulnerability does exist in your project, you should take steps to remedy the issue.
+
+Navigate to Secure > Vulnerability Report.
+
+In the Tool filter, click Dependency Scanning. Notice any security vulnerabilities Dependency Scanning found in the requirements file.
+
+There is a single vulnerability in the project dependencies, with a description of Unintended leak of Proxy-Authorization header in requests. Click the description.
+
+On the description page, you will see a description of the vulnerability, including the impact of the vulnerability. You will additionally see information about the patch and workaround for the vulnerability.
+
+In the top right corner, click the Status dropdown and choose Confirm.
+
+In the Linked items section of the vulnerability description, click the Create issue button.
+
+Assign the issue to yourself and click the Create issue button.
+
+Note that the description of the vulnerability was copied to the issue.
+
+Navigate back to Secure > Vulnerability report. Notice that the vulnerability you just created an issue for has a link to that issue in the Activity column.
+

@@ -38,3 +38,17 @@ It is also possible to disable these features by setting CI variables on the pro
 
 It is important to leave at least one job active in your .gitlab-ci.yml file. If there are no jobs defined in the pipeline, it will fail to run.
 
+
+# Turn Off Auto DevOps
+Before proceeding with this section, to avoid any conflicts between our CI/CD configuration and Auto DevOps, you should confirm that Auto DevOps is disabled in your project.
+
+In the left sidebar, navigate to Settings > CI/CD.
+
+Click on the Expand button next to Auto DevOps.
+
+Ensure that Default to Auto DevOps pipeline is unchecked.
+
+Click the Save changes button.
+
+In the left sidebar, navigate to Code > Repository to return to your code.
+

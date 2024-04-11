@@ -52,3 +52,18 @@ Click the Save changes button.
 
 In the left sidebar, navigate to Code > Repository to return to your code.
 
+
+# Task A. Add Project Dependencies
+Python-based projects often use pip for package management. With pip, developers will often provide a list of dependencies in a file called requirements.txt.
+
+Although this example uses Python with the pip package manager, GitLab supports various other package managers. For a full list of supported languages and package managers, click here.
+
+In your Security Labs project, navigate to Code > Repository.
+
+Create a file by clicking + > This directory > New file
+
+Set the Filename to requirements.txt and add the following text.
+
+requests==2.27.1
+Enter an appropriate commit message (ex. Adding requirements file), set the Target Branch to main, and click the Commit changes button.
+

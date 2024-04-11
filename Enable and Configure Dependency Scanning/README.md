@@ -67,3 +67,28 @@ Set the Filename to requirements.txt and add the following text.
 requests==2.27.1
 Enter an appropriate commit message (ex. Adding requirements file), set the Target Branch to main, and click the Commit changes button.
 
+
+
+# Task B. Enable Dependency Scanning
+The Dependency Scanner will traverse your project dependencies looking for security vulnerabilities.
+
+You’ll enable Dependency Scanning by including a GitLab-provided template in your CI/CD configuration file. You can do this manually, or you can use the GitLab GUI to make a merge request that does it for you. Since you used the manual technique to enable SAST, Secret Detection, and DAST in the last lab, use the GUI to enable Dependency Scanning in this lab.
+
+Navigate to Secure > Security configuration.
+
+In the Dependency Scanning pane, click Configure with a merge request. This does 3 things for you:
+
+Creates a new branch
+Adds a commit to the branch which edits your CI/CD configuration file to enable Dependency Scanning
+Redirects you to a page for creating an MR for that branch
+On the merge request (MR) creation page, leave all fields at their default values and click the Create merge request button. You will be redirected to the details page for the MR that you just created.
+
+In the middle of the page, find the notification that a pipeline is running on the MR’s branch.
+
+It could take a few minutes for the pipeline to finish, even if you’ve disabled scans from the previous lab.
+Do not click Auto-merge button since that can lead to unexpected behavior.
+Wait for the pipeline to finish. You can watch it by navigating to Build > Pipelines or clicking on the pipeline number in the merge request.
+After the pipeline has finished, click the Merge button in the MR. You might need to refresh the page to see this button.
+
+Navigate to Code > Repository and open .gitlab-ci.yml. Notice that the MR has added documentation at the top, reformatted the file, and added a Dependency Scanning template in the include: section.
+

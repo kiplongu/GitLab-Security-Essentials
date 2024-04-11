@@ -92,3 +92,22 @@ After the pipeline has finished, click the Merge button in the MR. You might nee
 
 Navigate to Code > Repository and open .gitlab-ci.yml. Notice that the MR has added documentation at the top, reformatted the file, and added a Dependency Scanning template in the include: section.
 
+
+# Task D. Configure Dependency Scanning
+You can configure Dependency Scanning by setting variables in your the gitlab-ci.yml file. In this task, you’ll change the Dependency Scanner’s log level to info.
+
+Navigate to Build > Pipeline editor.
+
+Add this job definition to the bottom of your .gitlab-ci.yml file. It overrides an existing job that’s defined by the Dependency Scanning template. Note that there are 2 hyphens and 1 underscore in the first line.
+
+gemnasium-python-dependency_scanning:
+  variables:
+    SECURE_LOG_LEVEL: "info"
+For a full list of variables available for dependency scanning, see the documentation.
+
+Commit this change to the main branch, using Change log level for Python dependency scanner as a commit message. Click Commit changes.
+
+This commit triggers a pipeline run using your new Dependency Scanning configuration.
+
+Navigate to Build > Pipelines and wait for the most recent pipeline to finish. If you want to watch its progress, go to the pipeline’s details page and click on the job the gemnasium-python-dependency_scanning pill button to see the console output for the job. Remember that Dependency Scanning can take a few minutes to run.
+

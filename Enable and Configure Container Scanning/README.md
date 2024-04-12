@@ -152,3 +152,22 @@ Navigate to Build > Pipelines to watch the progress of the new pipeline. Click o
 
 When the pipeline finishes running, go to left navigation pane and click Deploy > Container Registry. Verify that your job created a new Docker image and pushed it into the project’s container registry.
 
+
+
+# Task D. Enable Container Scanning
+Your application’s docker image may contain known vulnerabilities. In order to prevent these vulnerabilities from reaching production, you can detect them with Container Scanning. Now that your Docker image is being built and pushed, you can enable Container Scanning.
+
+Add the Container Scanning template to the existing include: section of .gitlab-ci.yml:
+
+include:
+- template: Security/SAST.gitlab-ci.yml
+- template: Security/Secret-Detection.gitlab-ci.yml
+- template: Security/Container-Scanning.gitlab-ci.yml
+This can be added anywhere in the list of templates.
+
+Commit the changes with an appropriate commit message.
+
+Navigate to Build > Pipelines to watch the progress of the new pipeline.
+
+Open the container_scanning job to view the CI output. Wait for the pipeline to finish running.
+

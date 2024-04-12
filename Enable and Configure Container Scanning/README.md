@@ -41,3 +41,62 @@ FROM python:3.4-alpine
 ADD main.py .
 Add a commit message, set the target branch to main and click Commit changes.
 
+
+
+# Task B. Build the Docker image
+In this section you will define a job that builds a Docker image. To build a Docker image with a CI/CD pipeline job, you must use a GitLab Runner that’s configured to use a Docker executor.
+
+Navigate to Code > Repository and edit .gitlab-ci.yml.
+
+Define a build stage by pasting this in your .gitlab-ci.yml, at the top of the stages list, before the -test stage. Make sure it has the same indentation as the existing - test entry beneath it:
+
+stages:
+- build
+- test
+Name your new job and assign it to the build stage by pasting this at the end of .gitlab-ci.yml:
+
+build-and-push-docker-image:
+  stage: build
+Your job must run on a Docker image that contains Docker tools. This approach is sometimes called “Docker in Docker” or “dind”. You’ll need to specify a version of the image that we’ve tested and know to work well for this task. Paste this underneath the build-and-push-docker-image job that you added in the previous step:
+
+build-and-push-docker-image:
+  stage: build
+  image: docker:20.10.17
+Your job also needs a second Docker image that enables the Docker in Docker workflow. Specify the second image with the services keyword, by pasting this into your job definition:
+
+build-and-push-docker-image:
+  stage: build
+  image: docker:20.10.17
+  services:
+    - docker:20.10.17-dind
+It’s helpful to define a variable to hold the full name and version of the Docker image you’re creating, because you’ll need to refer to that information more than once. You can assemble the name and version out of predefined variables that GitLab provides (remember that predefined variables generally start with CI_). Paste this into your job definition:
+
+build-and-push-docker-image:
+  stage: build
+  image: docker:20.10.17
+  services:
+    - docker:20.10.17-dind
+  variables:
+    IMAGE: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA
+If you set a variable telling Docker not to use TLS, you won’t have to worry about setting up security certificates. Add the DOCKER_TLS_CERTDIR variable.
+
+build-and-push-docker-image:
+  stage: build
+  image: docker:20.10.17
+  services:
+    - docker:20.10.17-dind
+  variables:
+    IMAGE: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA
+    DOCKER_TLS_CERTDIR: ""
+Tell Docker to build a Docker image using the recipe in Dockerfile. Add the script: and docker-build lines.
+
+build-and-push-docker-image:
+  stage: build
+  image: docker:20.10.17
+  services:
+    - docker:20.10.17-dind
+  variables:
+    IMAGE: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker build --tag $IMAGE .

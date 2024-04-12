@@ -100,3 +100,55 @@ build-and-push-docker-image:
     DOCKER_TLS_CERTDIR: ""
   script:
     - docker build --tag $IMAGE .
+
+
+# Task C. Push the Docker image to Project Container Registry
+Your job needs to log in to the project’s container registry so it can push your image to it. You can log in using a username, password, and registry URL that are stored in predefined variables.
+
+Add the docker login line to the bottom of the script section.
+
+build-and-push-docker-image:
+  stage: build
+  image: docker:20.10.17
+  services:
+    - docker:20.10.17-dind
+  variables:
+    IMAGE: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker build --tag $IMAGE .
+    - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
+Your job can push the image with a single Docker command. Add the docker push line to the bottom of the script section.
+
+build-and-push-docker-image:
+  stage: build
+  image: docker:20.10.17
+  services:
+    - docker:20.10.17-dind
+  variables:
+    IMAGE: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker build --tag $IMAGE .
+    - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push $IMAGE
+Your completed job definition should look like this. Make any corrections necessary to the job definition in your .gitlab-ci.yml.
+
+build-and-push-docker-image:
+  stage: build
+  image: docker:20.10.17
+  services:
+    - docker:20.10.17-dind
+  variables:
+    IMAGE: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker build --tag $IMAGE .
+    - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push $IMAGE
+Commit the changes to the main branch with an appropriate commit message (Adding a docker file definition).
+
+Navigate to Build > Pipelines to watch the progress of the new pipeline. Click on the pipeline to view the CI output for the build job.
+
+When the pipeline finishes running, go to left navigation pane and click Deploy > Container Registry. Verify that your job created a new Docker image and pushed it into the project’s container registry.
+

@@ -171,3 +171,12 @@ Navigate to Build > Pipelines to watch the progress of the new pipeline.
 
 Open the container_scanning job to view the CI output. Wait for the pipeline to finish running.
 
+
+
+# Task E. View the results
+Navigate to Secure > Vulnerability Report.
+
+In the Tool dropdown, click Container Scanning.
+
+The vulnerabilities listed are vulnerabilities detected inside of the Docker container you created. Click on any individual vulnerability to view more details
+

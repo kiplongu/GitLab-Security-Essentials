@@ -58,3 +58,27 @@ There’s a bug in this code-under-test: it doesn’t check to make sure you pas
 
 Commit the new file with an appropriate commit message.
 
+
+
+# Task B. Write the Fuzz Target
+Fuzz testing is the only type of GitLab scanning that requires you to write code: the fuzz target. The fuzz target you see below only works with the specific code-under-test for this lab. Fuzz targets for different code-under-test would look slightly different.
+
+Paste this Python fuzz target code into a new file called FuzzTarget.py in the root of your project. The comments explain each line of the fuzz target code.
+
+from codeundertest import is_third_byte_zero  # import function to be tested
+from pythonfuzz.main import PythonFuzz        # import fuzz test infrastructure
+
+# The fuzz engine calls a function called `fuzz` in the fuzz target and
+# passes it random bytes, so we need to define a function with that name,
+# and that function must accept 1 parameter.
+
+@PythonFuzz                           # Python decorator required by fuzz test infrastructure
+def fuzz(random_bytes):               # Accept random data...
+    is_third_byte_zero(random_bytes)  # ...and pass it on to the code-under-test.
+
+if __name__ == '__main__':            # required by fuzz test infrastructure
+    fuzz()
+This fuzz target is typical for Python-based fuzz testing. See the GitLab documentation for instructions on writing fuzz targets for other languages.
+
+Commit the new FuzzTarget.py with an appropriate commit message.
+

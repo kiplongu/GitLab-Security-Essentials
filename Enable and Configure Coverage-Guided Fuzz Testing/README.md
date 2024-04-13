@@ -82,3 +82,37 @@ This fuzz target is typical for Python-based fuzz testing. See the GitLab docume
 
 Commit the new FuzzTarget.py with an appropriate commit message.
 
+
+
+# Task C. Enable and Configure Fuzz Testing
+Define a new stage called fuzz by pasting this line at the end of the existing stages: section of .gitlab-ci.yml. Be sure to indent it correctly.
+
+stages:
+# - build
+- test
+# - dast
+- fuzz
+Enable fuzz testing by pasting this template into the existing include: section of .gitlab-ci.yml. Be sure to indent it correctly.
+
+include:
+# - template: Security/SAST.gitlab-ci.yml
+# - template: Security/Secret-Detection.gitlab-ci.yml
+# - template: DAST.gitlab-ci.yml
+# - template: Security/Container-Scanning.gitlab-ci.yml
+- template: Coverage-Fuzzing.gitlab-ci.yml
+Configure fuzz testing by defining a new job in .gitlab-ci.yml.
+
+fuzz-test-is-third-byte-zero:
+  extends: .fuzz_base  # This anchor is defined in the template included above.
+  image: python:latest    # This image must be able to run the code-under-test.
+  script:
+    # Install the fuzz engine from a GitLab-hosted PyPi repo.
+    - pip install --extra-index-url https://gitlab.com/api/v4/projects/19904939/packages/pypi/simple pythonfuzz
+
+    # Run a language-agnostic binary, specifying the type of fuzz engine,
+    # the root of the project, and the fuzz target.
+    - ./gitlab-cov-fuzz run --engine pythonfuzz --project-path ./ -- FuzzTarget.py
+Fuzz test job definitions, like fuzz targets, look a little different depending on what language they’re testing. See the documentation for instructions on writing fuzz test job definitions for other languages.
+
+Commit the edits to .gitlab-ci.yml with an appropriate commit message.
+

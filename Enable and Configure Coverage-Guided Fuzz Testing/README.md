@@ -116,3 +116,14 @@ Fuzz test job definitions, like fuzz targets, look a little different depending 
 
 Commit the edits to .gitlab-ci.yml with an appropriate commit message.
 
+
+
+# Task D. Review the results
+Watch the pipeline run after you’ve committed changes to .gitlab-ci.yml. It might take up to 3 minutes to finish.
+
+When the pipeline completes, click Build > Artifacts.
+
+Click on the fuzz-test-is-third-byte-zero job.
+
+On this screen, you will a summary of the fuzz job. On this screen, you can see the fuzz test that was run against the is_third_byte_zero function. Notice that the output includes a bytearray index out of range error.
+

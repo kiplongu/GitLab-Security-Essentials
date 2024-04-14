@@ -94,3 +94,16 @@ A new comment is also added to the activity of the merge request, stating that a
 
 This merge request now requires additional approval because dnspython does not use an approved license. A reviewer can now verify if the license is ok to proceed with before the merge is complete.
 
+
+
+# Task E. Lab Policy Cleanup
+To ensure that you can merge branches into main without approval, it is best to disable the policy.
+
+Navigate to Secure > Policies.
+
+Click on the policy you created. Click Edit policy.
+
+Click Delete Policy.
+
+Click Merge on the resulting merge request.
+

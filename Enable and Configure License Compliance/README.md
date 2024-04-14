@@ -62,3 +62,10 @@ In the resulting merge request, click the Merge button.
 
 When you create a policy, GitLab will create a new project for managing the policies. After you click Merge, you will need to navigate back to your original project.
 
+
+
+# Task C. View the License Compliance report with categorized licenses
+Click Secure > Licenses compliance.
+
+Notice that GitLab now describes every license except the MIT License as a policy violation. This report helps to flag existing dependencies which may contain licenses that you have not approved.
+

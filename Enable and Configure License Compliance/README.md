@@ -69,3 +69,28 @@ Click Secure > Licenses compliance.
 
 Notice that GitLab now describes every license except the MIT License as a policy violation. This report helps to flag existing dependencies which may contain licenses that you have not approved.
 
+
+
+# Task D. Create an MR that adds a dependency with a denied license
+Create a new branch named add-dnspython-dependency
+
+Add a new dependency to the add-dnspython-dependency branch (not the main branch!) by pasting dnspython==2.1.0 as a new line at the end of requirements.txt.
+
+Click the Create merge request button.
+
+Leave all fields as their default values and click Create merge request.
+
+Wait for the pipeline for the merge request to complete.
+
+Once the pipeline completes, refresh the page. A license compliance scan will now display, showing 1 new license detected. Click Full report.
+
+The license compliance report will list all of the licenses that are no longer in compliance with the project policy.
+
+Return to the merge request overview.
+
+Note that the merge status will appear stating Requires 1 approval from policy.
+
+A new comment is also added to the activity of the merge request, stating that a policy violation was detected.
+
+This merge request now requires additional approval because dnspython does not use an approved license. A reviewer can now verify if the license is ok to proceed with before the merge is complete.
+

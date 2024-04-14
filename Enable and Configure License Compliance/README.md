@@ -29,3 +29,36 @@ Navigate to Secure > License compliance.
 
 Click any of the licenses to view more details about the license and the compliance requirements.
 
+
+
+# Task B. Approve and Deny Licenses
+Let’s assume that your team has approved the MIT license. If any license aside from the MIT license exists in a dependency, it must be approved before the merge request can be complete.
+
+Navigate to Secure > Policies.
+
+Click the New policy button.
+
+Click Merge request approval policy > Select policy.
+
+Input any name (ex. ScanApprovedPolicy) and description for the policy.
+
+Set the Policy status to Enabled.
+
+In Rules, set the Select scan type dropdown menu to License Scan. Ensure that all protected branches with No exceptions is selected for the merge request target.
+
+Set the Status is dropdown menu to Newly Detected.
+
+Set the first dropdown in the License is section to Except.
+
+To exit the multi-select dropdown, click anywhere outside of it.
+
+In the Select license types dropdown, click MIT License. There are several licenses with similar names, so be sure to pick the right one.
+
+In the Actions section, require 1 approval from an Individual user. Click your username as the approval user.
+
+Leave the Override project approval settings checkboxes selected and click Configure with a merge request.
+
+In the resulting merge request, click the Merge button.
+
+When you create a policy, GitLab will create a new project for managing the policies. After you click Merge, you will need to navigate back to your original project.
+
